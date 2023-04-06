@@ -1,38 +1,37 @@
 package ginrestaurant
 
 import (
+	"net/http"
+
 	"api-gateway/src/common"
 	"api-gateway/src/component"
 	"api-gateway/src/modules/restaurant/restaurantbiz"
-	"api-gateway/src/modules/restaurant/restaurantmodel"
 	"api-gateway/src/modules/restaurant/restaurantstorage"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
-func CreateRestaurant(appCtx component.AppContext) gin.HandlerFunc {
+func GetRestaurant(appCtx component.AppContext) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var data restaurantmodel.RestaurantCreate
-
-		if err := ctx.ShouldBind(&data); err != nil {
+		id, err := uuid.Parse(ctx.Param("id"))
+		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"message": err.Error(),
 			})
-
 			return
 		}
 
 		store := restaurantstorage.NewSQLStore(appCtx.GetMainDBConnection())
-		biz := restaurantbiz.NewCreateRestaurantBiz(store)
+		biz := restaurantbiz.NewGetRestaurantBiz(store)
 
-		if err := biz.CreateRestaurant(ctx.Request.Context(), &data); err != nil {
+		result, err := biz.GetRestaurant(ctx.Request.Context(), id)
+		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"message": err.Error(),
 			})
-			return
 		}
 
-		ctx.JSON(http.StatusCreated, common.SimpleSuccessResponse(data))
+		ctx.JSON(http.StatusOK, common.SimpleSuccessResponse(result))
 	}
 }

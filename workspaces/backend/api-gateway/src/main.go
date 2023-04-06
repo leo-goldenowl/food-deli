@@ -40,23 +40,7 @@ func runService(db *gorm.DB) error {
 	{
 		restaurants.POST("", ginrestaurant.CreateRestaurant(appCtx))
 		restaurants.GET("", ginrestaurant.ListRestaurant(appCtx))
-		restaurants.GET("/:id", func(ctx *gin.Context) {
-			id := ctx.Param("id")
-
-			var restaurant restaurantmodel.Restaurant
-
-			if err := db.First(&restaurant, "id = ?", id).Error; err != nil {
-				ctx.JSON(http.StatusInternalServerError, gin.H{
-					"message": "cannot get restaurant",
-				})
-				return
-			}
-
-			ctx.JSON(http.StatusOK, gin.H{
-				"message": "restaurant retrieved",
-				"data":    restaurant,
-			})
-		})
+		restaurants.GET("/:id", ginrestaurant.GetRestaurant(appCtx))
 
 		restaurants.PUT("/:id", func(ctx *gin.Context) {
 			id := ctx.Param("id")
