@@ -1,11 +1,11 @@
 package ginrestaurant
 
 import (
-	"api-gateway/src/common"
-	"api-gateway/src/component"
-	"api-gateway/src/modules/restaurant/restaurantbiz"
-	"api-gateway/src/modules/restaurant/restaurantmodel"
-	"api-gateway/src/modules/restaurant/restaurantstorage"
+	"api-gateway/common"
+	"api-gateway/component"
+	"api-gateway/modules/restaurant/restaurantbiz"
+	"api-gateway/modules/restaurant/restaurantmodel"
+	"api-gateway/modules/restaurant/restaurantstorage"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

@@ -1,7 +1,7 @@
 package restaurantmodel
 
 import (
-	"api-gateway/src/common"
+	"api-gateway/common"
 	"errors"
 	"strings"
 )

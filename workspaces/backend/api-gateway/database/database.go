@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"api-gateway/src/config"
+	"api-gateway/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

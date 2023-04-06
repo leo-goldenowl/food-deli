@@ -1,7 +1,7 @@
 package restaurantbiz
 
 import (
-	"api-gateway/src/modules/restaurant/restaurantmodel"
+	"api-gateway/modules/restaurant/restaurantmodel"
 	"context"
 )
 

@@ -1,8 +1,8 @@
 package restaurantstorage
 
 import (
-	"api-gateway/src/common"
-	"api-gateway/src/modules/restaurant/restaurantmodel"
+	"api-gateway/common"
+	"api-gateway/modules/restaurant/restaurantmodel"
 	"context"
 	"strings"
 )

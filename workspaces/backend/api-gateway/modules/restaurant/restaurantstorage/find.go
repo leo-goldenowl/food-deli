@@ -3,7 +3,7 @@ package restaurantstorage
 import (
 	"context"
 
-	"api-gateway/src/modules/restaurant/restaurantmodel"
+	"api-gateway/modules/restaurant/restaurantmodel"
 )
 
 func (s *sqlStore) FindDataByCondition(

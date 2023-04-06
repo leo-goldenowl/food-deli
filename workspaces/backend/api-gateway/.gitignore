@@ -22,4 +22,4 @@ go.work
 .docker.env
 
 # exe
-src/tmp
+tmp

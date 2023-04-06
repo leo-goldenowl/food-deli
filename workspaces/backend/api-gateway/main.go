@@ -4,10 +4,10 @@ import (
 	"log"
 	"net/http"
 
-	"api-gateway/src/component"
-	"api-gateway/src/database"
-	"api-gateway/src/modules/restaurant/restaurantmodel"
-	"api-gateway/src/modules/restaurant/restauranttransport/ginrestaurant"
+	"api-gateway/component"
+	"api-gateway/database"
+	"api-gateway/modules/restaurant/restaurantmodel"
+	"api-gateway/modules/restaurant/restauranttransport/ginrestaurant"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
