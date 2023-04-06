@@ -1,13 +1,13 @@
 package main
 
 import (
+	"log"
+	"net/http"
+
 	"api-gateway/src/component"
 	"api-gateway/src/database"
 	"api-gateway/src/modules/restaurant/restaurantmodel"
 	"api-gateway/src/modules/restaurant/restauranttransport/ginrestaurant"
-
-	"log"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
