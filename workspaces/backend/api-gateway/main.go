@@ -42,21 +42,7 @@ func runService(db *gorm.DB) error {
 		restaurants.GET("", ginrestaurant.ListRestaurant(appCtx))
 		restaurants.GET("/:id", ginrestaurant.GetRestaurant(appCtx))
 		restaurants.PUT("/:id", ginrestaurant.UpdateRestaurant(appCtx))
-
-		restaurants.DELETE("/:id", func(ctx *gin.Context) {
-			id := ctx.Param("id")
-
-			if err := db.Where("id = ?", id).Delete(&restaurantmodel.Restaurant{}).Error; err != nil {
-				ctx.JSON(http.StatusInternalServerError, gin.H{
-					"message": "cannot delete restaurant",
-				})
-				return
-			}
-
-			ctx.JSON(http.StatusOK, gin.H{
-				"message": "restaurant deleted",
-			})
-		})
+		restaurants.DELETE("/:id", ginrestaurant.DeleteRestaurant(appCtx))
 	}
 
 	return r.Run()

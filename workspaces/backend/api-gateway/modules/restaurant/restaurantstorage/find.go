@@ -22,7 +22,7 @@ func (s *sqlStore) FindDataByCondition(
 		db = db.Preload(moreKeys[i])
 	}
 
-	err := db.Table(restaurantmodel.Restaurant{}.TableName()).Where(conditions).First(&result).Error
+	err := db.Where(conditions).First(&result).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, errors.New("data not found")
 	}
