@@ -2,24 +2,30 @@ package restaurantstorage
 
 import (
 	"context"
+	"errors"
 
 	"api-gateway/modules/restaurant/restaurantmodel"
+
+	"gorm.io/gorm"
 )
 
 func (s *sqlStore) FindDataByCondition(
 	ctx context.Context,
 	conditions map[string]interface{},
 	moreKeys ...string,
-) (restaurantmodel.Restaurant, error) {
-	var result restaurantmodel.Restaurant
-
+) (*restaurantmodel.Restaurant, error) {
 	db := s.db
+
+	var result *restaurantmodel.Restaurant
 
 	for i := range moreKeys {
 		db = db.Preload(moreKeys[i])
 	}
 
-	db.Table(restaurantmodel.Restaurant{}.TableName()).Where(conditions).First(&result)
+	err := db.Table(restaurantmodel.Restaurant{}.TableName()).Where(conditions).First(&result).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, errors.New("data not found")
+	}
 
 	return result, nil
 }

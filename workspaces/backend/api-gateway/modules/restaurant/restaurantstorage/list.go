@@ -1,10 +1,11 @@
 package restaurantstorage
 
 import (
-	"api-gateway/common"
-	"api-gateway/modules/restaurant/restaurantmodel"
 	"context"
 	"strings"
+
+	"api-gateway/common"
+	"api-gateway/modules/restaurant/restaurantmodel"
 )
 
 func (s *sqlStore) ListDataByCondition(ctx context.Context,
@@ -13,9 +14,9 @@ func (s *sqlStore) ListDataByCondition(ctx context.Context,
 	paging *common.Paging,
 	moreKeys ...string,
 ) ([]restaurantmodel.Restaurant, error) {
-	var result []restaurantmodel.Restaurant
-
 	db := s.db
+
+	var result []restaurantmodel.Restaurant
 
 	for i := range moreKeys {
 		db = db.Preload(moreKeys[i])

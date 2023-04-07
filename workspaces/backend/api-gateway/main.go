@@ -41,30 +41,7 @@ func runService(db *gorm.DB) error {
 		restaurants.POST("", ginrestaurant.CreateRestaurant(appCtx))
 		restaurants.GET("", ginrestaurant.ListRestaurant(appCtx))
 		restaurants.GET("/:id", ginrestaurant.GetRestaurant(appCtx))
-
-		restaurants.PUT("/:id", func(ctx *gin.Context) {
-			id := ctx.Param("id")
-
-			var data restaurantmodel.RestaurantUpdate
-
-			if err := ctx.ShouldBindJSON(&data); err != nil {
-				ctx.JSON(http.StatusBadRequest, gin.H{
-					"message": "Invalid request body",
-				})
-				return
-			}
-
-			if err := db.Where("id = ?", id).Updates(&data).Error; err != nil {
-				ctx.JSON(http.StatusInternalServerError, gin.H{
-					"message": "cannot update restaurant",
-				})
-				return
-			}
-
-			ctx.JSON(http.StatusOK, gin.H{
-				"message": "restaurant updated",
-			})
-		})
+		restaurants.PUT("/:id", ginrestaurant.UpdateRestaurant(appCtx))
 
 		restaurants.DELETE("/:id", func(ctx *gin.Context) {
 			id := ctx.Param("id")
