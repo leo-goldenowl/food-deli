@@ -22,7 +22,9 @@ func (s *sqlStore) ListDataByCondition(ctx context.Context,
 		db = db.Preload(moreKeys[i])
 	}
 
-	db.Table(restaurantmodel.Restaurant{}.TableName()).Where(conditions)
+	db.Table(restaurantmodel.Restaurant{}.TableName()).Where(conditions).Where("status = ?", 1)
+
+	db = db.Where("status = ?", 1)
 
 	if v := filter; v != nil {
 		if len(strings.TrimSpace(v.Name)) > 0 {

@@ -2,6 +2,7 @@ package restaurantbiz
 
 import (
 	"context"
+	"errors"
 
 	"api-gateway/modules/restaurant/restaurantmodel"
 
@@ -27,8 +28,12 @@ func NewGetRestaurantBiz(store GetRestaurantStore) *getRestaurantBiz {
 func (biz *getRestaurantBiz) GetRestaurant(
 	ctx context.Context,
 	id uuid.UUID,
-) (*restaurantmodel.Restaurant, error) {	
+) (*restaurantmodel.Restaurant, error) {
 	data, err := biz.store.FindDataByCondition(ctx, map[string]interface{}{"id": id})
+
+	if data.Status == 0 {
+		return nil, errors.New("restaurant deleted")
+	}
 
 	return data, err
 }
