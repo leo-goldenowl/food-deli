@@ -34,19 +34,24 @@ func (biz *updateRestaurantBiz) UpdateRestaurant(
 	ctx context.Context,
 	id uuid.UUID,
 	data *restaurantmodel.RestaurantUpdate,
-) error {
+) (*restaurantmodel.Restaurant, error) {
 	oldData, err := biz.store.FindDataByCondition(ctx, map[string]interface{}{"id": id})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if oldData.Status == 0 {
-		return errors.New("data deleted")
+		return nil, errors.New("restaurant deleted")
 	}
 
 	if err := biz.store.UpdateData(ctx, id, data); err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	newData, err := biz.store.FindDataByCondition(ctx, map[string]interface{}{"id": id})
+	if err != nil {
+		return nil, err
+	}
+
+	return newData, nil
 }

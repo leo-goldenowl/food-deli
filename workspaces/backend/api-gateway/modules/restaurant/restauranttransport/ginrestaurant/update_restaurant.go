@@ -36,7 +36,8 @@ func UpdateRestaurant(appCtx component.AppContext) gin.HandlerFunc {
 		store := restaurantstorage.NewSQLStore(appCtx.GetMainDBConnection())
 		biz := restaurantbiz.NewUpdateRestaurantBiz(store)
 
-		if err := biz.UpdateRestaurant(ctx.Request.Context(), id, &data); err != nil {
+		result, err := biz.UpdateRestaurant(ctx.Request.Context(), id, &data)
+		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"message": err.Error(),
 			})
@@ -44,6 +45,6 @@ func UpdateRestaurant(appCtx component.AppContext) gin.HandlerFunc {
 			return
 		}
 
-		ctx.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
+		ctx.JSON(http.StatusOK, common.SimpleSuccessResponse(result))
 	}
 }
