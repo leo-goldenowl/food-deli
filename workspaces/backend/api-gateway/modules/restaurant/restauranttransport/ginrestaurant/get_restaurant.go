@@ -16,11 +16,7 @@ func GetRestaurant(appCtx component.AppContext) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id, err := uuid.Parse(ctx.Param("id"))
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
-			
-			return
+			panic(common.ErrInvalidRequest(err))
 		}
 
 		store := restaurantstorage.NewSQLStore(appCtx.GetMainDBConnection())
@@ -28,11 +24,7 @@ func GetRestaurant(appCtx component.AppContext) gin.HandlerFunc {
 
 		result, err := biz.GetRestaurant(ctx.Request.Context(), id)
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
-
-			return
+			panic(err)
 		}
 
 		ctx.JSON(http.StatusOK, common.SimpleSuccessResponse(result))

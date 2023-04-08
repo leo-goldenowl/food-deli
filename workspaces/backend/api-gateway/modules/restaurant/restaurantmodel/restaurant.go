@@ -1,10 +1,13 @@
 package restaurantmodel
 
 import (
-	"api-gateway/common"
 	"errors"
 	"strings"
+
+	"api-gateway/common"
 )
+
+const EntityName = "Restaurant"
 
 type Restaurant struct {
 	common.SQLModel `json:",inline"`

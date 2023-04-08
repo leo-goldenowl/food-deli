@@ -6,6 +6,7 @@ import (
 
 	"api-gateway/component"
 	"api-gateway/database"
+	"api-gateway/middleware"
 	"api-gateway/modules/restaurant/restaurantmodel"
 	"api-gateway/modules/restaurant/restauranttransport/ginrestaurant"
 
@@ -24,7 +25,10 @@ func main() {
 }
 
 func runService(db *gorm.DB) error {
+	appCtx := component.NewAppContext(db)
 	r := gin.Default()
+
+	r.Use(middleware.Recover(appCtx))
 
 	r.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
@@ -32,10 +36,7 @@ func runService(db *gorm.DB) error {
 		})
 	})
 
-	appCtx := component.NewAppContext(db)
-
 	// CRUD
-
 	restaurants := r.Group("/restaurants")
 	{
 		restaurants.POST("", ginrestaurant.CreateRestaurant(appCtx))

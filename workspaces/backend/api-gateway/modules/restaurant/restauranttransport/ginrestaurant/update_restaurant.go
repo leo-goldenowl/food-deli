@@ -17,20 +17,13 @@ func UpdateRestaurant(appCtx component.AppContext) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id, err := uuid.Parse(ctx.Param("id"))
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
-			return
+			panic(common.ErrInvalidRequest(err))
 		}
 
 		var data restaurantmodel.RestaurantUpdate
 
 		if err := ctx.ShouldBind(&data); err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
-
-			return
+			panic(common.ErrInvalidRequest(err))
 		}
 
 		store := restaurantstorage.NewSQLStore(appCtx.GetMainDBConnection())
@@ -38,11 +31,7 @@ func UpdateRestaurant(appCtx component.AppContext) gin.HandlerFunc {
 
 		result, err := biz.UpdateRestaurant(ctx.Request.Context(), id, &data)
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
-
-			return
+			panic(err)
 		}
 
 		ctx.JSON(http.StatusOK, common.SimpleSuccessResponse(result))

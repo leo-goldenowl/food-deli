@@ -2,9 +2,9 @@ package restaurantbiz
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
+	"api-gateway/common"
 	"api-gateway/modules/restaurant/restaurantmodel"
 
 	"github.com/google/uuid"
@@ -34,10 +34,10 @@ func (biz *deleteRestaurantBiz) DeleteRestaurant(ctx context.Context, id uuid.UU
 	}
 
 	if oldData.Status == 0 {
-		return errors.New("restaurant deleted")
+		return common.ErrEntityDeleted(restaurantmodel.EntityName, nil)
 	}
 
-fmt.Println("oldData", oldData)
+	fmt.Println("oldData", oldData)
 
 	if err := biz.store.SoftDeleteData(ctx, id); err != nil {
 		return err

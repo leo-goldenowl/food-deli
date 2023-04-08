@@ -2,8 +2,8 @@ package restaurantbiz
 
 import (
 	"context"
-	"errors"
 
+	"api-gateway/common"
 	"api-gateway/modules/restaurant/restaurantmodel"
 
 	"github.com/google/uuid"
@@ -31,9 +31,17 @@ func (biz *getRestaurantBiz) GetRestaurant(
 ) (*restaurantmodel.Restaurant, error) {
 	data, err := biz.store.FindDataByCondition(ctx, map[string]interface{}{"id": id})
 
-	if data.Status == 0 {
-		return nil, errors.New("restaurant deleted")
+	if err != nil {
+		if err != common.RecordNotFound {
+			return nil, common.ErrCannotGetEntity(restaurantmodel.EntityName, err)
+		}
+
+		return nil, common.ErrCannotGetEntity(restaurantmodel.EntityName, err)
 	}
 
-	return data, err
+	if data.Status == 0 {
+		return nil, common.ErrEntityDeleted(restaurantmodel.EntityName, nil)
+	}
+
+	return data, nil
 }

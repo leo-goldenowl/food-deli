@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 
+	"api-gateway/common"
 	"api-gateway/modules/restaurant/restaurantmodel"
 
 	"gorm.io/gorm"
@@ -22,9 +23,12 @@ func (s *sqlStore) FindDataByCondition(
 		db = db.Preload(moreKeys[i])
 	}
 
-	err := db.Where(conditions).First(&result).Error
-	if errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, errors.New("data not found")
+	if err := db.Where(conditions).First(&result).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, common.RecordNotFound
+		}
+
+		return nil, common.ErrDB(err)
 	}
 
 	return result, nil
