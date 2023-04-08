@@ -11,7 +11,7 @@ type AppError struct {
 	StatusCode int    `json:"statusCode"`
 	RootErr    error  `json:"-"`
 	Message    string `json:"message"`
-	Log        string `json:"log"`
+	Log        string `json:"-"`
 	Key        string `json:"errorKey"`
 }
 
@@ -99,7 +99,6 @@ func ErrEntityDeleted(entity string, err error) *AppError {
 		fmt.Sprintf("Err%sDeleted", entity),
 	)
 }
-
 
 func ErrCannotDeleteEntity(entity string, err error) *AppError {
 	return NewCustomError(
