@@ -35,11 +35,11 @@ func NewRegisterBiz(registerStore RegisterStore, hasher Hasher) *registerBiz {
 	}
 }
 
-func (biz *registerBiz) Register(ctx context.Context, data *usermodel.UserCreate) error {
+func (biz *registerBiz) Register(ctx context.Context, data *usermodel.UserCreate) (*usermodel.User, error) {
 	user, _ := biz.registerStore.FindUser(ctx, map[string]interface{}{"email": data.Email})
 
 	if user != nil {
-		return usermodel.ErrEmailExisted
+		return nil, usermodel.ErrEmailExisted
 	}
 
 	salt := common.GenSalt(50)
@@ -50,8 +50,13 @@ func (biz *registerBiz) Register(ctx context.Context, data *usermodel.UserCreate
 	data.Status = 1
 
 	if err := biz.registerStore.CreateUser(ctx, data); err != nil {
-		return common.ErrDB(err)
+		return nil, common.ErrDB(err)
 	}
 
-	return nil
+	newUser, err := biz.registerStore.FindUser(ctx, map[string]interface{}{"email": data.Email})
+	if err != nil {
+		return nil, common.ErrDB(err)
+	}
+	
+	return newUser, nil
 }

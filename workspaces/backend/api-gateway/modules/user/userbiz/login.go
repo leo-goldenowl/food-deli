@@ -4,11 +4,9 @@ import (
 	"context"
 
 	"api-gateway/common"
-	"api-gateway/component"
 	"api-gateway/component/tokenprovider"
 	"api-gateway/modules/user/usermodel"
 )
-
 
 type LoginStore interface {
 	FindUser(
@@ -19,7 +17,6 @@ type LoginStore interface {
 }
 
 type loginBiz struct {
-	appCtx        component.AppContext
 	storeUser     LoginStore
 	tokenProvider tokenprovider.Provider
 	hasher        Hasher
@@ -38,7 +35,7 @@ func NewLoginBiz(storeUser LoginStore, tokenProvider tokenprovider.Provider, has
 func (biz *loginBiz) Login(ctx context.Context, data *usermodel.UserLogin) (*tokenprovider.Token, error) {
 	user, err := biz.storeUser.FindUser(ctx, map[string]interface{}{"email": data.Email})
 	if err != nil {
-		return nil, common.ErrCannotGetEntity(usermodel.EntityName, err)
+		return nil, usermodel.ErrUsernameOrPasswordInvalid
 	}
 
 	passHashed := biz.hasher.Hash(data.Password + user.Salt)
@@ -56,6 +53,6 @@ func (biz *loginBiz) Login(ctx context.Context, data *usermodel.UserLogin) (*tok
 	if err != nil {
 		return nil, common.ErrInternal(err)
 	}
-	
+
 	return accessToken, nil
 }

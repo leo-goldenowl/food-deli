@@ -41,19 +41,19 @@ func (biz *listRestaurantBiz) ListRestaurant(
 		return nil, common.ErrCannotListEntity(restaurantmodel.EntityName, err)
 	}
 
-	ids := make([]uuid.UUID, len(result))
+	// ids := make([]uuid.UUID, len(result))
 
-	for i := range result {
-		ids[i] = result[i].Id
-	}
+	// for i := range result {
+	// 	ids[i] = result[i].Id
+	// }
 
-	restaurantsLikes, _ := biz.likeStore.GetRestaurantLikes(ctx, ids)
+	// restaurantsLikes, _ := biz.likeStore.GetRestaurantLikes(ctx, ids)
 
-	if v := restaurantsLikes; v != nil {
-		for i, item := range result {
-			result[i].LikedCount = restaurantsLikes[item.Id]
-		}
-	}
+	// if v := restaurantsLikes; v != nil {
+	// 	for i, item := range result {
+	// 		result[i].LikedCount = restaurantsLikes[item.Id]
+	// 	}
+	// }
 
 	return result, nil
 }

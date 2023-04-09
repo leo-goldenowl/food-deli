@@ -22,8 +22,8 @@ import (
 func main() {
 	db := database.CreateInstance()
 
-	db.AutoMigrate(&restaurantmodel.Restaurant{})
 	db.AutoMigrate(&usermodel.User{})
+	db.AutoMigrate(&restaurantmodel.Restaurant{})
 	db.AutoMigrate(&restaurantlikemodel.RestaurantLike{})
 
 	db = db.Debug()

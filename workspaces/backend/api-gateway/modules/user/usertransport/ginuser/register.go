@@ -25,10 +25,11 @@ func Register(appCtx component.AppContext) gin.HandlerFunc {
 		md5 := hasher.NewMd5Hash()
 		biz := userbiz.NewRegisterBiz(store, md5)
 
-		if err := biz.Register(ctx.Request.Context(), &data); err != nil {
+		user, err := biz.Register(ctx.Request.Context(), &data)
+		if err != nil {
 			panic(err)
 		}
 
-		ctx.JSON(http.StatusCreated, common.SimpleSuccessResponse(data))
+		ctx.JSON(http.StatusCreated, common.SimpleSuccessResponse(user))
 	}
 }

@@ -17,8 +17,8 @@ type User struct {
 	LastName        string        `json:"lastName" gorm:"column:last_name;type:varchar(255);not null"`
 	FirstName       string        `json:"firstName" gorm:"column:first_name;type:varchar(255);not null"`
 	Role            string        `json:"role " gorm:"column:role;type:varchar(255);not null"`
-	Salt            string        `json:"-" gorm:"column:salt;type:varchar(255);"`
-	Avatar          *common.Image `json:"avatar,omitempty" gorm:"column:avatar;type:jsonb;"`
+	Salt            string        `json:"-" gorm:"column:salt;type:varchar(255);not null;"`
+	Avatar          *common.Image `json:"avatar" gorm:"column:avatar;"`
 }
 
 func (u *User) GetUserId() uuid.UUID {
@@ -40,7 +40,7 @@ func (User) TableName() string {
 type UserCreate struct {
 	common.SQLModel `json:",inline"`
 	Email           string        `json:"email" gorm:"column:email;"`
-	Password        string        `json:"-" gorm:"column:password"`
+	Password        string        `json:"password" gorm:"column:password"`
 	LastName        string        `json:"lastName" gorm:"column:last_name"`
 	FirstName       string        `json:"firstName" gorm:"column:first_name"`
 	Role            string        `json:"-" gorm:"column:role"`
