@@ -63,7 +63,9 @@ func (s *sqlStore) GetUsersLikeRestaurant(
 
 	users := make([]common.SimpleUser, len(result))
 
-	for i := range result {
+	for i, item := range result {
+		result[i].User.CreatedAt = item.CreatedAt
+		result[i].User.UpdatedAt = nil
 		users[i] = *result[i].User
 	}
 
