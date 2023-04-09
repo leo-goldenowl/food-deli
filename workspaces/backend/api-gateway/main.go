@@ -10,6 +10,7 @@ import (
 	"api-gateway/middleware"
 	"api-gateway/modules/restaurant/restaurantmodel"
 	"api-gateway/modules/restaurant/restauranttransport/ginrestaurant"
+	"api-gateway/modules/restaurantlike/restaurantlikemodel"
 	"api-gateway/modules/user/usermodel"
 	"api-gateway/modules/user/usertransport/ginuser"
 
@@ -22,6 +23,9 @@ func main() {
 
 	db.AutoMigrate(&restaurantmodel.Restaurant{})
 	db.AutoMigrate(&usermodel.User{})
+	db.AutoMigrate(&restaurantlikemodel.RestaurantLike{})
+
+	db = db.Debug()
 
 	if err := runService(db); err != nil {
 		log.Fatal("can not start the server.\n", err)

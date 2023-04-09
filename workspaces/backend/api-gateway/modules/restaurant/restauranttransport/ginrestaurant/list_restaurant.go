@@ -8,6 +8,7 @@ import (
 	"api-gateway/modules/restaurant/restaurantbiz"
 	"api-gateway/modules/restaurant/restaurantmodel"
 	"api-gateway/modules/restaurant/restaurantstorage"
+	"api-gateway/modules/restaurantlike/restaurantlikestorage"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,8 +29,10 @@ func ListRestaurant(appCtx component.AppContext) gin.HandlerFunc {
 
 		paging.Fulfill()
 
-		store := restaurantstorage.NewSQLStore(appCtx.GetMainDBConnection())
-		biz := restaurantbiz.NewListRestaurantBiz(store)
+		db := appCtx.GetMainDBConnection()
+		store := restaurantstorage.NewSQLStore(db)
+		likeStore := restaurantlikestorage.NewSQLStore(db)
+		biz := restaurantbiz.NewListRestaurantBiz(store, likeStore)
 
 		result, err := biz.ListRestaurant(ctx.Request.Context(), &filter, &paging)
 		if err != nil {
