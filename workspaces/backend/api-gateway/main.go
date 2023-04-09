@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -62,5 +63,5 @@ func runService(db *gorm.DB) error {
 		restaurants.GET("/:id/liked-users", ginrestaurantlike.ListUser(appCtx))
 	}
 
-	return r.Run()
+	return r.Run(fmt.Sprintf(":%s", config.App.Port))
 }
