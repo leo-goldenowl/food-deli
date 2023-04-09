@@ -116,13 +116,13 @@ func ErrCannotUpdateEntity(entity string, err error) *AppError {
 	)
 }
 
-// func ErrEntityExisted(entity string, err error) *AppError {
-// 	return NewCustomError(
-// 		err,
-// 		fmt.Sprintf("%s already exists", strings.ToLower(entity)),
-// 		fmt.Sprintf("Err%sAlreadyExisted", entity),
-// 	)
-// }
+func ErrEntityExisted(entity string, err error) *AppError {
+	return NewCustomError(
+		err,
+		fmt.Sprintf("%s already exists", strings.ToLower(entity)),
+		fmt.Sprintf("Err%sAlreadyExisted", entity),
+	)
+}
 
 // func ErrEntityNotFound(entity string, err error) *AppError {
 // 	return NewCustomError(
@@ -131,3 +131,11 @@ func ErrCannotUpdateEntity(entity string, err error) *AppError {
 // 		fmt.Sprintf("Err%sNotFound", entity),
 // 	)
 // }
+
+func ErrNoPermission(err error) *AppError {
+	return NewCustomError(
+		err,
+		"you have no permission",
+		"ErrNoPermission",
+	)
+}

@@ -17,12 +17,13 @@ type Config struct {
 	DatabaseUsername string `mapstructure:"DB_USERNAME"`
 	DatabasePassword string `mapstructure:"DB_PASSWORD"`
 
+	JwtSecret string `mapstructure:"JWT_SECRET"`
+
 	Port string `mapstructure:"PORT"`
 }
 
 func init() {
 	LoadedConfAppFromTheEnv, err := loadConfig(".")
-
 	if err != nil {
 		log.Fatal("cannot load config.\n", err)
 	}

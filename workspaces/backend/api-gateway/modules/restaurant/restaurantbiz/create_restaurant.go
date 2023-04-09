@@ -1,8 +1,9 @@
 package restaurantbiz
 
 import (
-	"api-gateway/modules/restaurant/restaurantmodel"
 	"context"
+
+	"api-gateway/modules/restaurant/restaurantmodel"
 )
 
 type CreateRestaurantStore interface {
@@ -22,7 +23,9 @@ func (biz *createRestaurantBiz) CreateRestaurant(ctx context.Context, data *rest
 		return err
 	}
 
-	err := biz.store.Create(ctx, data)
+	if err := biz.store.Create(ctx, data); err != nil {
+		return err
+	}
 
-	return err
+	return nil
 }

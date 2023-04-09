@@ -2,7 +2,6 @@ package restaurantbiz
 
 import (
 	"context"
-	"fmt"
 
 	"api-gateway/common"
 	"api-gateway/modules/restaurant/restaurantmodel"
@@ -36,8 +35,6 @@ func (biz *deleteRestaurantBiz) DeleteRestaurant(ctx context.Context, id uuid.UU
 	if oldData.Status == 0 {
 		return common.ErrEntityDeleted(restaurantmodel.EntityName, nil)
 	}
-
-	fmt.Println("oldData", oldData)
 
 	if err := biz.store.SoftDeleteData(ctx, id); err != nil {
 		return err

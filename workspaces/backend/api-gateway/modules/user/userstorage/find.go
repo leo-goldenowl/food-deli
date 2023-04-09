@@ -1,27 +1,27 @@
-package restaurantstorage
+package userstorage
 
 import (
 	"context"
 	"errors"
 
 	"api-gateway/common"
-	"api-gateway/modules/restaurant/restaurantmodel"
+	"api-gateway/modules/user/usermodel"
 
 	"gorm.io/gorm"
 )
 
-func (s *sqlStore) FindDataByCondition(
+func (s *sqlStore) FindUser(
 	ctx context.Context,
 	conditions map[string]interface{},
 	moreKeys ...string,
-) (*restaurantmodel.Restaurant, error) {
-	db := s.db
+) (*usermodel.User, error) {
+	db := s.db.Table(usermodel.User{}.TableName())
 
 	for i := range moreKeys {
 		db = db.Preload(moreKeys[i])
 	}
-	
-	var result *restaurantmodel.Restaurant
+
+	var result *usermodel.User
 
 	if err := db.Where(conditions).First(&result).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

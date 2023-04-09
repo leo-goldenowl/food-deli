@@ -5,14 +5,19 @@ import (
 	"strings"
 
 	"api-gateway/common"
+
+	"github.com/google/uuid"
 )
 
 const EntityName = "Restaurant"
 
 type Restaurant struct {
 	common.SQLModel `json:",inline"`
-	Name            string `json:"name" gorm:"column:name;type:varchar(100);not null"`
-	Address         string `json:"address" gorm:"column:address;type:varchar(100);not null"`
+	Name            string         `json:"name" gorm:"column:name;type:varchar(255);not null"`
+	OwnerId         uuid.UUID      `json:"-" gorm:"column:owner_id;type:uuid;not null;"`
+	Address         string         `json:"address" gorm:"column:address;type:varchar(255);not null"`
+	Logo            *common.Image  `json:"logo" gorm:"column:logo;"`
+	Cover           *common.Images `json:"cover" gorm:"column:cover;"`
 }
 
 func (Restaurant) TableName() string {
@@ -20,8 +25,10 @@ func (Restaurant) TableName() string {
 }
 
 type RestaurantUpdate struct {
-	Name    *string `json:"name" gorm:"column:name;"`
-	Address *string `json:"address" gorm:"column:address;"`
+	Name    *string        `json:"name" gorm:"column:name;"`
+	Address *string        `json:"address" gorm:"column:address;"`
+	Logo    *common.Image  `json:"logo" gorm:"column:logo;"`
+	Cover   *common.Images `json:"cover" gorm:"column:cover;"`
 }
 
 func (RestaurantUpdate) TableName() string {
@@ -30,8 +37,11 @@ func (RestaurantUpdate) TableName() string {
 
 type RestaurantCreate struct {
 	common.SQLModel `json:",inline"`
-	Name            string `json:"name" gorm:"column:name;"`
-	Address         string `json:"address" gorm:"column:address;"`
+	Name            string         `json:"name" gorm:"column:name;"`
+	OwnerId         uuid.UUID      `json:"-" gorm:"column:owner_id;"`
+	Address         string         `json:"address" gorm:"column:address;"`
+	Logo            *common.Image  `json:"logo" gorm:"column:logo;"`
+	Cover           *common.Images `json:"cover" gorm:"column:cover;"`
 }
 
 func (RestaurantCreate) TableName() string {
