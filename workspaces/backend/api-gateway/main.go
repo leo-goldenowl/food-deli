@@ -10,12 +10,9 @@ import (
 	"api-gateway/config"
 	"api-gateway/database"
 	"api-gateway/middleware"
-	"api-gateway/modules/restaurant/restaurantmodel"
 	"api-gateway/modules/restaurant/restauranttransport/ginrestaurant"
-	"api-gateway/modules/restaurantlike/restaurantlikemodel"
 	"api-gateway/modules/restaurantlike/restaurantliketransport/ginrestaurantlike"
 	"api-gateway/modules/upload/uploadtransport/ginupload"
-	"api-gateway/modules/user/usermodel"
 	"api-gateway/modules/user/usertransport/ginuser"
 
 	"github.com/gin-gonic/gin"
@@ -32,13 +29,7 @@ func main() {
 	)
 
 	db := database.CreateInstance()
-
-	db.AutoMigrate(&usermodel.User{})
-	db.AutoMigrate(&restaurantmodel.Restaurant{})
-	db.AutoMigrate(&restaurantlikemodel.RestaurantLike{})
-
-	db = db.Debug()
-
+	
 	if err := runService(db, s3Provider); err != nil {
 		log.Fatal("can not start the server.\n", err)
 	}

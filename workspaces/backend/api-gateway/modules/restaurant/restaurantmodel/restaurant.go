@@ -16,8 +16,8 @@ type Restaurant struct {
 	Name            string             `json:"name" gorm:"column:name;type:varchar(255);not null"`
 	UserId          uuid.UUID          `json:"-" gorm:"column:owner_id;type:uuid;not null;"`
 	Address         string             `json:"address" gorm:"column:address;type:varchar(255);not null"`
-	Logo            *common.Image      `json:"logo" gorm:"column:logo;"`
-	Cover           *common.Images     `json:"cover" gorm:"column:cover;"`
+	Logo            *common.Image      `json:"logo" gorm:"column:logo;type:jsonb;"`
+	Cover           *common.Images     `json:"cover" gorm:"column:cover;type:jsonb;"`
 	User            *common.SimpleUser `json:"user" gorm:"preload:false"`
 	LikedCount      int                `json:"likedCount" gorm:"column:liked_count;default:0;not null;"`
 }
