@@ -5,15 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-
-	"github.com/google/uuid"
 )
 
 type Image struct {
-	Id        uuid.UUID `json:"id" gorm:"column:id;"`
+	// Id        uuid.UUID `json:"id" gorm:"column:id;"`
 	Url       string    `json:"url" gorm:"column:url;"`
-	Width     int       `json:"width" gorm:"column:width;"`
-	Height    int       `json:"height" gorm:"column:height;"`
+	// Width     int       `json:"width" gorm:"column:width;"`
+	// Height    int       `json:"height" gorm:"column:height;"`
 	CloudName string    `json:"cloudName" gorm:"-"`
 	Extension string    `json:"extension" gorm:"-"`
 }

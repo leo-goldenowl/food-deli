@@ -17,6 +17,12 @@ type Config struct {
 	DatabaseUsername string `mapstructure:"DB_USERNAME"`
 	DatabasePassword string `mapstructure:"DB_PASSWORD"`
 
+	S3BucketName string `mapstructure:"S3_BUCKET_NAME"`
+	S3Region     string `mapstructure:"S3_REGION"`
+	S3APIKey     string `mapstructure:"S3_API_KEY"`
+	S3SecretKey  string `mapstructure:"S3_SECRET_KEY"`
+	S3Domain     string `mapstructure:"S3_DOMAIN"`
+
 	JwtSecret string `mapstructure:"JWT_SECRET"`
 
 	Port string `mapstructure:"PORT"`
