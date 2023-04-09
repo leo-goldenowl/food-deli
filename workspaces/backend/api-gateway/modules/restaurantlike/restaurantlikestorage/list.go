@@ -32,3 +32,40 @@ func (s *sqlStore) GetRestaurantLikes(ctx context.Context, ids []uuid.UUID) (map
 
 	return result, nil
 }
+
+func (s *sqlStore) GetUsersLikeRestaurant(
+	ctx context.Context,
+	conditions map[string]interface{},
+	filter *restaurantlikemodel.Filter,
+	paging *common.Paging,
+) ([]common.SimpleUser, error) {
+	db := s.db
+
+	var result []restaurantlikemodel.RestaurantLike
+
+	db = db.Table(restaurantlikemodel.RestaurantLike{}.TableName()).Where(conditions)
+
+	if v := filter; v != nil {
+		if v.RestaurantId != uuid.Nil {
+			db = db.Where("restaurant_id = ?", v.RestaurantId)
+		}
+	}
+
+	if err := db.Count(&paging.Total).Error; err != nil {
+		return nil, common.ErrDB(err)
+	}
+
+	db = db.Preload("User")
+
+	if err := db.Offset((paging.Page - 1) * paging.Limit).Limit(paging.Limit).Order("created_at desc").Find(&result).Error; err != nil {
+		return nil, common.ErrDB(err)
+	}
+
+	users := make([]common.SimpleUser, len(result))
+
+	for i := range result {
+		users[i] = *result[i].User
+	}
+
+	return users, nil
+}

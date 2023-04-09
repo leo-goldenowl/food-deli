@@ -11,6 +11,7 @@ import (
 	"api-gateway/modules/restaurant/restaurantmodel"
 	"api-gateway/modules/restaurant/restauranttransport/ginrestaurant"
 	"api-gateway/modules/restaurantlike/restaurantlikemodel"
+	"api-gateway/modules/restaurantlike/restaurantliketransport/ginrestaurantlike"
 	"api-gateway/modules/user/usermodel"
 	"api-gateway/modules/user/usertransport/ginuser"
 
@@ -57,6 +58,8 @@ func runService(db *gorm.DB) error {
 		restaurants.GET("/:id", ginrestaurant.GetRestaurant(appCtx))
 		restaurants.PUT("/:id", ginrestaurant.UpdateRestaurant(appCtx))
 		restaurants.DELETE("/:id", ginrestaurant.DeleteRestaurant(appCtx))
+
+		restaurants.GET("/:id/liked-users", ginrestaurantlike.ListUser(appCtx))
 	}
 
 	return r.Run()

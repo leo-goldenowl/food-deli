@@ -52,20 +52,6 @@ func (UserCreate) TableName() string {
 	return User{}.TableName()
 }
 
-// type UserUpdate struct {
-// 	Email     string        `json:"email" gorm:"column:email;"`
-// 	Password  string        `json:"password" gorm:"column:password"`
-// 	LastName  string        `json:"lastName" gorm:"column:last_name"`
-// 	FirstName string        `json:"firstName" gorm:"column:first_name"`
-// 	Role      string        `json:"-" gorm:"column:role"`
-// 	Salt      string        `json:"-" gorm:"column:salt"`
-// 	Avatar    *common.Image `json:"avatar,omitempty" gorm:"column:avatar;"`
-// }
-
-// func (UserUpdate) TableName() string {
-// 	return User{}.TableName()
-// }
-
 type UserLogin struct {
 	Email    string `json:"email" gorm:"column:email;"`
 	Password string `json:"password" gorm:"column:password"`
