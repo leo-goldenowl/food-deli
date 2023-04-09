@@ -32,7 +32,7 @@ func (biz *getRestaurantBiz) GetRestaurant(
 	data, err := biz.store.FindDataByCondition(ctx, map[string]interface{}{"id": id})
 
 	if err != nil {
-		if err != common.RecordNotFound {
+		if err != common.ErrRecordNotFound {
 			return nil, common.ErrCannotGetEntity(restaurantmodel.EntityName, err)
 		}
 

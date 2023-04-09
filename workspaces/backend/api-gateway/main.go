@@ -61,6 +61,8 @@ func runService(db *gorm.DB) error {
 		restaurants.DELETE("/:id", ginrestaurant.DeleteRestaurant(appCtx))
 
 		restaurants.GET("/:id/liked-users", ginrestaurantlike.ListUser(appCtx))
+		restaurants.POST("/:id/like", ginrestaurantlike.UserLikeRestaurant(appCtx))
+		restaurants.DELETE("/:id/unlike", ginrestaurantlike.UserUnLikeRestaurant(appCtx))
 	}
 
 	return r.Run(fmt.Sprintf(":%s", config.App.Port))

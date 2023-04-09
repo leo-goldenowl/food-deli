@@ -1,5 +1,14 @@
 package common
 
-import "errors"
+import (
+	"errors"
+	"log"
+)
 
-var RecordNotFound = errors.New("record not found")
+var ErrRecordNotFound = errors.New("record not found")
+
+func AppRecover() {
+	if err := recover(); err != nil {
+		log.Println(err)
+	}
+}

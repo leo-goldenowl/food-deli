@@ -25,7 +25,7 @@ func (s *sqlStore) FindUser(
 
 	if err := db.Where(conditions).First(&result).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, common.RecordNotFound
+			return nil, common.ErrRecordNotFound
 		}
 
 		return nil, common.ErrDB(err)

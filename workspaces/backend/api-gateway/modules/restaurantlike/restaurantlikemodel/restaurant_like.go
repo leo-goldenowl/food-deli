@@ -1,6 +1,7 @@
 package restaurantlikemodel
 
 import (
+	"fmt"
 	"time"
 
 	"api-gateway/common"
@@ -19,4 +20,28 @@ type RestaurantLike struct {
 
 func (RestaurantLike) TableName() string {
 	return "restaurant_likes"
+}
+
+func ErrCannotLikeRestaurant(err error) *common.AppError {
+	return common.NewCustomError(err,
+		"cannot like this restaurant",
+		fmt.Sprintf("ErrCannotLike%s", EntityName))
+}
+
+func ErrLikedRestaurant() *common.AppError {
+	return common.NewCustomError(nil,
+		"liked this restaurant",
+		fmt.Sprintf("ErrCannotLike%s", EntityName))
+}
+
+func ErrCannotUnlikeRestaurant(err error) *common.AppError {
+	return common.NewCustomError(err,
+		"cannot unlike this restaurant",
+		fmt.Sprintf("ErrCannotUnlike%s", EntityName))
+}
+
+func ErrHasNotLikedRestaurant() *common.AppError {
+	return common.NewCustomError(nil,
+		"has not liked this restaurant",
+		fmt.Sprintf("ErrCannotUnlike%s", EntityName))
 }
