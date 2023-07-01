@@ -57,3 +57,6 @@ go run main.go
 1. Request access to join [render.com](https://dashboard.render.com/)
 2. Follow the doucmentation [here](https://render.com/docs/deploy-go-gin) to deploy
 3. Follow this documentation [here](https://render.com/docs/configure-environment-variables) to set all value of .env into the app
+
+### Database schema
+[![](https://mermaid.ink/img/pako:eNqdU2FrwjAQ_Sshn_UP9JuwDoZjDKvfhHJrTpetTeRyUUbtf99pZVrjHCwpNH3v5fLueml15Q3qTCM9WFgTNEunZCyKfFaoy3XbfxxGjNYoeV6nZywwWbdWDhpMQGzA1gm6gRB2nkxCBKg5AWsIXN6MvrKUUNax0MAxnLGP4N2bgi0w0Bll26CqCIHRlMBXRNyYAdH1r1lezCeL2eRlXiTAX4W6Ze1e8cAYwpDkUfu1v8Yqv0UanlTbT7Ff-ej4vzn_JOJ3Dqm05pdSlM9P0zxNX8wzRALHslU9Tq_oGI4xB8RNf_15fS_u9-OxbwdVz9RSy7yjOfm7EF7uvy_XI90gSRsbuSrHDJea31F-lz4IDK4gStNK2E6kENkXX67SGVPEke4rerpfOltBHbD7BlgrCZ4?type=png)](https://mermaid.live/edit#pako:eNqdU2FrwjAQ_Sshn_UP9JuwDoZjDKvfhHJrTpetTeRyUUbtf99pZVrjHCwpNH3v5fLueml15Q3qTCM9WFgTNEunZCyKfFaoy3XbfxxGjNYoeV6nZywwWbdWDhpMQGzA1gm6gRB2nkxCBKg5AWsIXN6MvrKUUNax0MAxnLGP4N2bgi0w0Bll26CqCIHRlMBXRNyYAdH1r1lezCeL2eRlXiTAX4W6Ze1e8cAYwpDkUfu1v8Yqv0UanlTbT7Ff-ej4vzn_JOJ3Dqm05pdSlM9P0zxNX8wzRALHslU9Tq_oGI4xB8RNf_15fS_u9-OxbwdVz9RSy7yjOfm7EF7uvy_XI90gSRsbuSrHDJea31F-lz4IDK4gStNK2E6kENkXX67SGVPEke4rerpfOltBHbD7BlgrCZ4)

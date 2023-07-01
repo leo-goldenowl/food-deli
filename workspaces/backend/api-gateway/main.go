@@ -29,7 +29,7 @@ func main() {
 	)
 
 	db := database.CreateInstance()
-	
+
 	if err := runService(db, s3Provider); err != nil {
 		log.Fatal("can not start the server.\n", err)
 	}

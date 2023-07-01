@@ -10,7 +10,7 @@ The description will be updated later...
 ```
 - workspaces
   - backend: contains all main server.
-  - fronte: contains all main web app.
+  - frontend: contains all main web app.
 
 ## Set Up Project
 - [learn-go-api](workspaces/backend/api-gateway//README.md)

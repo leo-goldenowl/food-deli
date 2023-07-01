@@ -12,9 +12,11 @@ import (
 func main() {
 	db := database.CreateInstance()
 
-	db.AutoMigrate(&usermodel.User{},
+	db.AutoMigrate(
+		&usermodel.User{},
 		&restaurantmodel.Restaurant{},
-		&restaurantlikemodel.RestaurantLike{})
+		&restaurantlikemodel.RestaurantLike{},
+	)
 
-	log.Println("migrated data...")
+	log.Println("migrated data!")
 }

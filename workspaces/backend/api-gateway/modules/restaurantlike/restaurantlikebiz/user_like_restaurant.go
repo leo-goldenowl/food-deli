@@ -47,6 +47,8 @@ func (biz *userLikeRestaurantBiz) LikeRestaurant(
 	if err != nil {
 		return restaurantlikemodel.ErrCannotLikeRestaurant(err)
 	}
+
+	// side effect
 	go func() {
 		defer common.AppRecover()
 		_ = biz.incStore.IncreaseLikedCount(ctx, data.RestaurantId)
